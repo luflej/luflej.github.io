@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="000055股票代码查询，000055万方发展（万方城）股票行情、财务数据、公司简介及投资分析。">
+    <meta name="keywords" content="000055, 万方发展, 股票代码, A股, 证券行情, 财务报表">
+    <title>000055-万方发展股票行情与投资分析平台</title>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --border-color: #e2e8f0;
+            --nav-height: 64px;
+            --container-width: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-top: var(--nav-height);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--text-main);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-sub);
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Stock Info Cards */
+        .stock-info {
+            margin-top: -40px;
+            margin-bottom: 40px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 0.875rem;
+            color: var(--text-sub);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .info-value.up {
+            color: #ef4444; /* Red for up in Chinese market */
+        }
+
+        .info-value.down {
+            color: #22c55e; /* Green for down in Chinese market */
+        }
+
+        /* Main Content Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* News List */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .news-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .news-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .news-content h3 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .news-meta {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        .news-date {
+            color: var(--text-sub);
+            font-size: 0.85rem;
+        }
+
+        /* Sidebar */
+        aside {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .sidebar-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #f1f5f9;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .data-table th, .data-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table th {
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Company Profile */
+        .profile-content {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: #eff6ff;
+            color: var(--primary-color);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand h2 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            margin-top: 40px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-inner {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 0;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-inner">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>
+                <span>股市通</span> 000055
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">行情</a></li>
+                    <li><a href="#">资讯</a></li>
+                    <li><a href="#">研报</a></li>
+                    <li><a href="#">数据中心</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>000055 万方发展</h1>
+            <p>股票代码：000055 | 所属行业：信息技术 / 商业贸易</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Stock Info Cards -->
+        <div class="stock-info">
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-label">最新价 (元)</div>
+                    <div class="info-value" id="price">5.42</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">涨跌幅 (%)</div>
+                    <div class="info-value up" id="change">+1.25%</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">成交量 (手)</div>
+                    <div class="info-value">12,450</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">成交额 (万)</div>
+                    <div class="info-value">67.8</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-layout">
+            <!-- Left Column -->
+            <main>
+                <!-- Company Profile -->
+                <section>
+                    <div class="section-header">
+                        <h2 class="section-title">公司概况</h2>
+                    </div>
+                    <article class="profile-content">
+                        <p>万方发展（北京）科技股份有限公司（股票代码：000055）是一家总部位于北京的高新技术企业。公司主营业务涵盖互联网信息服务、软件开发、数据处理以及互联网商品交易服务等多个领域。</p>
+                        <p>作为一家致力于数字经济发展的企业，万方发展积极布局大数据与人工智能应用，通过技术创新为各行业提供数字化转型解决方案。公司旗下拥有多个互联网服务平台，在行业内积累了良好的口碑和用户基础。</p>
+                        <div class="tags">
+                            <span class="tag">高新技术企业</span>
+                            <span class="tag">数字经济</span>
+                            <span class="tag">大数据</span>
+                            <span class="tag">软件服务</span>
+                        </div>
+                    </article>
+                </section>
+
+                <!-- Recent News -->
+                <section>
+                    <div class="section-header">
+                        <h2 class="section-title">最新动态</h2>
+                        <a href="#" style="font-size: 0.9rem; color: var(--primary-color);">查看更多 &gt;</a>
+                    </div>
+                    <div class="news-list">
+                        <article class="news-item">
+                            <div class="news-content">
+                                <h3>万方发展：关于回购股份方案的进展公告</h3>
+                                <div class="news-meta">公司公告 • 2023-10-24</div>
+                            </div>
+                            <div class="news-date">09:30</div>
+                        </article>
+                        <article class="news-item">
+                            <div class="news-content">
+                                <h3>业绩说明会定于下月举行，投资者可在线提问</h3>
+                                <div class="news-meta">公司新闻 • 2023-10-20</div>
+                            </div>
+                            <div class="news-date">14:15</div>
+                        </article>
+                        <article class="news-item">
+                            <div class="news-content">
+                                <h3>数字化转型助力传统商贸行业升级</h3>
+                                <div class="news-meta">行业观察 • 2023-10-15</div>
+                            </div>
+                            <div class="news-date">10:05</div>
+                        </article>
+                        <article class="news-item">
+                            <div class="news-content">
+                                <h3>万方发展获得一项关于数据加密技术的软件著作权</h3>
+                                <div class="news-meta">知识产权 • 2023-10-10</div>
+                            </div>
+                            <div class="news-date">16:40</div>
+                        </article>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Right Column -->
+            <aside>
+                <!-- Chart Simulation -->
+                <div class="sidebar-card">
+                    <h3 class="section-title" style="font-size: 1rem; margin-bottom: 10px;">分时走势</h3>
+                    <div class="chart-placeholder">
+                        [分时走势图表区域]
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 0.85rem; color: var(--text-sub);">
+                        <span>今开: 5.35</span>
+                        <span>最高: 5.48</span>
+                        <span>最低: 5.32</span>
+                        <span>昨收: 5.36</span>
+                    </div>
+                </div>
+
+                <!-- Financial Data -->
+                <div class="sidebar-card">
+                    <h3 class="section-title" style="font-size: 1rem; margin-bottom: 15px;">财务指标 (2023 Q3)</h3>
+                    <table class="data-table">
+                        <tr>
+                            <th>每股收益 (元)</th>
+                            <td>-0.012</td>
+                        </tr>
+                        <tr>
+                            <th>净资产收益率 (%)</th>
+                            <td>-0.85</td>
+                        </tr>
+                        <tr>
+                            <th>总市值 (亿)</th>
+                            <td>9.85</td>
+                        </tr>
+                        <tr>
+                            <th>市盈率 (TTM)</th>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <th>市净率</th>
+                            <td>2.45</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Market Tags -->
+                <div class="sidebar-card">
+                    <h3 class="section-title" style="font-size: 1rem; margin-bottom: 15px;">所属板块</h3>
+                    <div class="tags">
+                        <span class="tag">软件服务</span>
+                        <span class="tag">互联网</span>
+                        <span class="tag">北京板块</span>
+                        <span class="tag">创投概念</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h2>股市通 000055</h2>
+                    <p>专注于提供精准、及时的A股市场数据分析与资讯服务。我们致力于帮助投资者做出更明智的决策。</p>
+                </div>
+                <div class="footer-links">
+                    <h4>市场</h4>
+                    <ul>
+                        <li><a href="#">沪深A股</a></li>
+                        <li><a href="#">港股通</a></li>
+                        <li><a href="#">美股市场</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>服务</h4>
+                    <ul>
+                        <li><a href="#">行情订阅</a></li>
+                        <li><a href="#">智能选股</a></li>
+                        <li><a href="#">风险提示</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 股市通数据服务平台. 本站数据仅供参考，不构成投资建议。
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to simulate price fluctuation for demonstration
+        document.addEventListener('DOMContentLoaded', function() {
+            const priceEl = document.getElementById('price');
+            const changeEl = document.getElementById('change');
+            
+            // Initial setup
+            let currentPrice = 5.42;
+            const changeRate = 1.25;
+
+            // Simulate live data updates every 3 seconds
+            setInterval(() => {
+                const fluctuation = (Math.random() - 0.5) * 0.02;
+                currentPrice += fluctuation;
+                
+                // Update price text
+                priceEl.textContent = currentPrice.toFixed(2);
+                
+                // Update change class and text (randomly up or down for demo)
+                if (Math.random() > 0.5) {
+                    changeEl.className = 'info-value up';
+                    changeEl.textContent = '+' + (Math.random() * 2).toFixed(2) + '%';
+                } else {
+                    changeEl.className = 'info-value down';
+                    changeEl.textContent = '-' + (Math.random() * 2).toFixed(2) + '%';
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
